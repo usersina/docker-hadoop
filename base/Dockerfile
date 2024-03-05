@@ -1,25 +1,23 @@
-FROM debian:9
-
-MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
-MAINTAINER Giannis Mouchakis <gmouchakis@iit.demokritos.gr>
+# See https://en.wikipedia.org/wiki/Debian_version_history#Release_table
+FROM debian:bullseye-slim
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      openjdk-8-jdk \
-      net-tools \
-      curl \
-      netcat \
-      gnupg \
-      libsnappy-dev \
+    openjdk-11-jdk \
+    net-tools \
+    curl \
+    netcat \
+    gnupg \
+    libsnappy-dev \
     && rm -rf /var/lib/apt/lists/*
-      
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
 RUN gpg --import KEYS
 
-ENV HADOOP_VERSION 3.2.1
-ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
+ENV HADOOP_VERSION 3.3.6
+ENV HADOOP_URL https://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 
 RUN set -x \
     && curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz \
