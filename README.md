@@ -63,13 +63,19 @@ CORE_CONF_fs_defaultFS=hdfs://namenode:8020
 CORE_CONF corresponds to core-site.xml. fs_defaultFS=hdfs://namenode:8020 will be transformed into:
 
 ```xml
-<property><name>fs.defaultFS</name><value>hdfs://namenode:8020</value></property>
+<property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://namenode:8020</value>
+</property>
 ```
 
 To define dash inside a configuration parameter, use triple underscore, such as YARN*CONF_yarn_log\*\*\_aggregation*\*\*enable=true (yarn-site.xml):
 
 ```xml
-<property><name>yarn.log-aggregation-enable</name><value>true</value></property>
+<property>
+    <name>yarn.log-aggregation-enable</name>
+    <value>true</value>
+</property>
 ```
 
 The available configurations are:
