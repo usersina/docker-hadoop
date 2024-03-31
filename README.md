@@ -56,6 +56,9 @@ hadoop fs -copyToLocal /output /data/output
 
 ### Mapper & Reducer Sample
 
+This expects the [purchases file](https://chgogos.github.io/big_data/hadoop/udacity_training/) to exist at [./data/purchases.txt](data/purchases.txt).
+It is not included in the repository due due to its size.
+
 ```bash
 # Clean up old data (if any)
 hadoop fs -rm -r /myInput
