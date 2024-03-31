@@ -9,7 +9,7 @@
 To deploy an example HDFS cluster, run:
 
 ```bash
-docker-compose up
+make up
 ```
 
 Run example wordcount job:
@@ -28,6 +28,8 @@ Access the hadoop interfaces with the following URLs:
 
 ## Manual run
 
+### Base manipulation
+
 You can open a shell with direct access to hadoop as follows
 
 ```bash
@@ -37,19 +39,40 @@ make shell
 In the opened shell, you can directly communicate with HDFS. Here's an example
 
 ```bash
-# Copy the file to HDFS (already there)
-# hadoop fs -copyFromLocal /opt/hadoop-3.3.6/README.txt /input/
-hadoop fs -ls /input/
-
-# Delete the output directory (if any)
+# Clean up old data (if any)
 hadoop fs -rm -r /output
-rm -rf /mydata/output
+rm -rf /data/output
+
+# Copy the file to HDFS
+hadoop fs -mkdir /input
+hadoop fs -copyFromLocal /opt/hadoop-3.3.6/README.txt /input/
 
 # Run the wordcount job
-hadoop jar /mydata/WordCount.jar WordCount /input /output
+hadoop jar /data/WordCount.jar WordCount /input /output
 
 # Copy the output to local
-hadoop fs -copyToLocal /output /mydata/output
+hadoop fs -copyToLocal /output /data/output
+```
+
+### Mapper & Reducer Sample
+
+```bash
+# Clean up old data (if any)
+hadoop fs -rm -r /myInput
+hadoop fs -rm -r /myOutput
+
+# Create the input directory in hadoop and copy the data there
+hadoop fs -mkdir /myInput
+hadoop fs -put /data/purchases.txt /myInput
+
+# Run the map/reduce job (file option is local, not in hdfs)
+mapred streaming \
+    -file /data/sample/mapper.py    -mapper '/usr/bin/python3 mapper.py' \
+    -file /data/sample/reducer.py   -reducer '/usr/bin/python3 reducer.py' \
+    -input /myInput -output /myOutput
+
+# Copy the output to local
+hadoop fs -copyToLocal /myOutput /data/output
 ```
 
 ## Configure Environment Variables
