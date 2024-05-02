@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.3.6-java11
@@ -8,6 +6,8 @@ services:
     ports:
       - 9870:9870
       - 9000:9000
+    networks:
+      - hadoop_network
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
     environment:
@@ -21,6 +21,8 @@ services:
     restart: unless-stopped
     ports:
       - 9864:9864
+    networks:
+      - hadoop_network
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
     environment:
@@ -34,6 +36,8 @@ services:
     restart: unless-stopped
     ports:
       - 8088:8088
+    networks:
+      - hadoop_network
     environment:
       SERVICE_PRECONDITION: 'namenode:9000 namenode:9870 datanode:9864'
     env_file:
@@ -45,6 +49,8 @@ services:
     restart: unless-stopped
     ports:
       - 8042:8042
+    networks:
+      - hadoop_network
     environment:
       SERVICE_PRECONDITION: 'namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088'
     env_file:
@@ -58,6 +64,8 @@ services:
       - 8188:8188
       - 10020:10020
       - 19888:19888
+    networks:
+      - hadoop_network
     environment:
       SERVICE_PRECONDITION: 'namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088'
     volumes:
@@ -65,7 +73,17 @@ services:
     env_file:
       - ./hadoop.env
 
+networks:
+  hadoop_network:
+    name: hadoop_network
+    driver: bridge
+
 volumes:
   hadoop_namenode:
+    driver: local
+
   hadoop_datanode:
+    driver: local
+
   hadoop_historyserver:
+    driver: local
