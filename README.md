@@ -6,6 +6,20 @@
 
 ## Quick Start
 
+Build the local images
+
+```bash
+make
+```
+
+Download the `purchases.txt` file if not already
+
+```bash
+cd data
+curl -L http://content.udacity-data.com/courses/ud617/purchases.txt.gz --output purchases.txt.gz
+gzip -d purchases.txt.gz
+```
+
 To deploy an example HDFS cluster, run:
 
 ```bash
