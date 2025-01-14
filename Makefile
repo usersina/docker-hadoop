@@ -12,13 +12,13 @@ build:
 	docker build -t bde2020/hadoop-submit:$(VERSION) ./submit
 
 up:
-	docker-compose up -d
+	docker compose up -d
 
 down:
-	docker-compose down
+	docker compose down
 
 delete:
-	docker-compose down -v
+	docker compose down -v
 
 shell:
 	docker run \
