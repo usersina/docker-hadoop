@@ -2,7 +2,7 @@ services:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.3.6-java11
     container_name: namenode
-    restart: unless-stopped
+    hostname: namenode
     ports:
       - 9870:9870
       - 9000:9000
@@ -18,7 +18,7 @@ services:
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.3.6-java11
     container_name: datanode
-    restart: unless-stopped
+    hostname: datanode
     ports:
       - 9864:9864
     networks:
@@ -33,7 +33,7 @@ services:
   resourcemanager:
     image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.3.6-java11
     container_name: resourcemanager
-    restart: unless-stopped
+    hostname: resourcemanager
     ports:
       - 8088:8088
     networks:
@@ -46,7 +46,7 @@ services:
   nodemanager1:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.3.6-java11
     container_name: nodemanager
-    restart: unless-stopped
+    hostname: nodemanager
     ports:
       - 8042:8042
     networks:
@@ -59,7 +59,7 @@ services:
   historyserver:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.3.6-java11
     container_name: historyserver
-    restart: unless-stopped
+    hostname: historyserver
     ports:
       - 8188:8188
       - 10020:10020

@@ -17,6 +17,9 @@ up:
 down:
 	docker compose down
 
+stop:
+	docker compose stop
+
 delete:
 	docker compose down -v
 

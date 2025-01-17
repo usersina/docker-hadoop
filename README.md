@@ -128,3 +128,22 @@ The available configurations are:
 - /etc/hadoop/mapred-site.xml MAPRED_CONF
 
 If you need to extend some other [configuration](https://hadoop.apache.org/docs/r3.2.4/hadoop-project-dist/hadoop-common/ClusterSetup.html) file, refer to base/entrypoint.sh bash script.
+
+## Programmatic Access
+
+You need to add the following entries to your hosts file:
+
+- `/etc/hosts`
+
+```shell
+...
+
+# Docker hadoop
+127.0.0.1   namenode    datanode
+::1         namenode    datanode
+```
+
+## Resources
+
+- <https://github.com/big-data-europe/docker-hadoop>
+- <https://github.com/big-data-europe/docker-hadoop/issues/98#issuecomment-919815981>
